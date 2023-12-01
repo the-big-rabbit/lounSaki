@@ -1,0 +1,114 @@
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    max-height: 100vh;
+    margin: 20px auto;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(49, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-auto-flow: dense;
+    position: relative;
+    width: 80vw;
+    /* Utilisation d'une unité relative pour la largeur */
+    margin: 300px 0 0 0;
+    /* Activer le défilement horizontal si nécessaire */
+}
+
+.cell {
+    width: 8vw;
+    /* Utilisation d'une unité relative pour la largeur */
+    height: 8vw;
+    /* Utilisation d'une unité relative pour la hauteur */
+    border: 1px solid #000;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.player {
+    width: 5vw;
+    /* Utilisation d'une unité relative pour la largeur */
+    height: 5vw;
+    /* Utilisation d'une unité relative pour la hauteur */
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.5s ease-in-out;
+    z-index: 10;
+    text-align: center;
+}
+
+.player-name {
+    position: absolute;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#dice {
+    margin-top: 20px;
+}
+
+#dice-result {
+    margin-top: 10px;
+    font-size: 24px;
+}
+
+.progressBars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.progress {
+    width: 100%;
+    height: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+form input {
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+form button {
+    padding: 10px;
+    cursor: pointer;
+}
