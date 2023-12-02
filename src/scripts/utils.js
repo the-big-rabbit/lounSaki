@@ -28,7 +28,7 @@ export function getContrast(hexcolor) {
 
 export function getRandomChallenge(playerPosition) {
     // Récupérez la liste de défis associée à la position du joueur depuis le fichier JSON
-    return fetch("http://localhost:3000/defis.json")
+    return fetch("src/defis/defis.json")
         .then((response) => response.json())
         .then((challengesData) => {
             const challengesList =
@@ -54,10 +54,13 @@ export function updatePlayerProgress(position1, position2, cells, players) {
     const progress1 = (position1 / cells.length) * 100;
     const progress2 = (position2 / cells.length) * 100;
 
-    const player1Name = players[0].dataset.name || "Joueur 1";
-    const player2Name = players[1].dataset.name || "Joueur 2";
-    const player1Color = players[0].style.backgroundColor || "#ff0000";
-    const player2Color = players[1].style.backgroundColor || "#0000ff";
+    const player1Name = players[0].getElement().dataset.name || "Joueur 1";
+    const player2Name = players[1].getElement().dataset.name || "Joueur 2";
+
+    const player1Color =
+        players[0].getElement().style.backgroundColor || "#ff0000";
+    const player2Color =
+        players[1].getElement().style.backgroundColor || "#0000ff";
 
     document.getElementById(
         "player1-progress"

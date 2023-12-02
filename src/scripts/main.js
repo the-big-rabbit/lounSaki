@@ -1,5 +1,11 @@
-import { getRandomChallenge, getContrast } from "./utils.js";
+import {
+    getRandomChallenge,
+    getContrast,
+    updatePlayerProgress,
+} from "./utils.js";
 import Player from "./player.js";
+import Dice from "./dice.js";
+import scrollManager from "./scroll.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     const board = document.getElementById("board");
@@ -7,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
         new Player("player1", "fa-female"),
         new Player("player2", "fa-male"),
     ];
+
+    const dice = new Dice();
 
     players.forEach((player) => {
         board.appendChild(player.getElement());
@@ -27,10 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
         backdrop: "static",
     });
     const diceModal = document.getElementById("diceModal");
-
-    diceModal.addEventListener("hidden.bs.modal", function () {
-        scrollToCurrentPlayer(); // Appeler la fonction de défilement pour centrer la vue sur le joueur actuel
-    });
 
     startGameModal.show(); // Ouvrir la pop-up au chargement de la page
 
@@ -91,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 position2 = newPosition;
             }
             updatePlayerPosition();
-            updatePlayerProgress();
+            updatePlayerProgress(position1, position2, cells, players);
+            scrollManager.setPlayersAndIndex(players, currentPlayerIndex);
             currentPlayerIndex = 1 - currentPlayerIndex;
         }
     }
@@ -118,93 +123,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }px, ${top2 - boardRect.top + (cellSize - playerSize) / 2}px)`;
     }
 
-    function updatePlayerProgress() {
-        const progress1 = (position1 / cells.length) * 100;
-        const progress2 = (position2 / cells.length) * 100;
+    scrollManager.setPlayersAndIndex(players, currentPlayerIndex);
 
-        const player1Name = players[0].getElement().dataset.name || "Joueur 1";
-        const player2Name = players[1].getElement().dataset.name || "Joueur 2";
-        const player1Color =
-            players[0].getElement().style.backgroundColor || "#ff0000";
-        const player2Color =
-            players[1].getElement().style.backgroundColor || "#0000ff";
-
-        document.getElementById(
-            "player1-progress"
-        ).textContent = `${player1Name} - ${Math.floor(progress1)}%`;
-        document.getElementById("player1-progress").style.backgroundColor =
-            player1Color;
-        document.getElementById(
-            "player1-progress"
-        ).style.width = `${progress1}%`;
-        document
-            .getElementById("player1-progress")
-            .setAttribute("aria-valuenow", progress1);
-        document.getElementById(
-            "player2-progress"
-        ).textContent = `${player2Name} - ${Math.floor(progress2)}%`;
-        document.getElementById(
-            "player2-progress"
-        ).style.backgroundColor = `${player2Color}`;
-        document.getElementById(
-            "player2-progress"
-        ).style.width = `${progress2}%`;
-        document
-            .getElementById("player2-progress")
-            .setAttribute("aria-valuenow", progress2);
-    }
-
-    function rollDice() {
-        switch (Math.floor(Math.random() * 6) + 1) {
-            case 1:
-                return [1, "fa-dice-one"];
-            case 2:
-                return [2, "fa-dice-two"];
-            case 3:
-                return [3, "fa-dice-three"];
-            case 4:
-                return [4, "fa-dice-four"];
-            case 5:
-                return [5, "fa-dice-five"];
-            case 6:
-                return [6, "fa-dice-six"];
-            default:
-                return Math.floor(Math.random() * 6) + 1;
-        }
-    }
-
-    function scrollToPlayer(player, callback) {
-        const board = document.getElementById("board");
-        const playerRect = player.getBoundingClientRect();
-        const boardRect = board.getBoundingClientRect();
-
-        const scrollLeft =
-            playerRect.left +
-            window.scrollX -
-            (window.innerWidth - playerRect.width) / 2;
-        const scrollTop =
-            playerRect.top +
-            window.scrollY -
-            (window.innerHeight - playerRect.height) / 2;
-
-        window.scrollTo({
-            top: scrollTop,
-            left: scrollLeft,
-            behavior: "smooth",
-        });
-
-        setTimeout(callback, 1000);
-    }
-
-    function scrollToCurrentPlayer() {
-        const currentPlayer = players[currentPlayerIndex].getElement(); // Utilisez currentPlayerIndex au lieu de const currentPlayerIndex = currentPlayerIndex;
-        scrollToPlayer(currentPlayer);
-    }
-    function scrollToNextPlayer() {
-        const nextPlayerIndex = 1 - currentPlayerIndex;
-        const nextPlayer = players[nextPlayerIndex].getElement();
-        scrollToPlayer(nextPlayer);
-    }
+    diceModal.addEventListener("hidden.bs.modal", function () {
+        scrollManager.scrollToNextPlayer(); // Appeler la fonction de défilement pour centrer la vue sur le joueur actuel
+    });
 
     function playTurn() {
         // Affichage de la fenêtre modale d'animation de dé
@@ -224,8 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Délai avant de déplacer le joueur
         setTimeout(() => {
             // Lancer le déplacement du joueur
-            const dice1 = rollDice();
-            const dice2 = rollDice();
+            const dice1 = dice.roll();
+            const dice2 = dice.roll();
             const totalSteps = dice1[0] + dice2[0];
 
             const newPosition =
@@ -253,10 +176,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
             movePlayer(currentPlayerIndex, totalSteps); // Lancer le déplacement du joueur après le délai
+            scrollManager.scrollToNextPlayer();
 
             setTimeout(() => {
-                scrollToCurrentPlayer();
-                scrollToNextPlayer();
+                scrollManager.scrollToCurrentPlayer();
             }, 500); // Vous pouvez ajuster cette durée en fonction de vos besoins
 
             // Affichage du résultat du dé
@@ -269,13 +192,14 @@ document.addEventListener("DOMContentLoaded", function () {
         position2 = 0;
         currentPlayerIndex = 0;
         updatePlayerPosition();
-        updatePlayerProgress();
-        scrollToPlayer(players[currentPlayerIndex].getElement());
+        updatePlayerProgress(position1, position2, cells, players);
+        scrollManager.scrollToPlayer(() => {});
+        players[currentPlayerIndex].getElement();
         playerNamesForm.style.display = "block"; // Réafficher le formulaire
     }
 
     document.getElementById("dice").addEventListener("click", playTurn);
 
     updatePlayerPosition();
-    updatePlayerProgress();
+    updatePlayerProgress(position1, position2, cells, players);
 });

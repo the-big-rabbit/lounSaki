@@ -1,0 +1,724 @@
+{
+    "cases": [
+        {
+            "id": 1,
+            "challenges": [
+                "Défi 1A",
+                "Défi 1B",
+                "Défi 1C",
+                "Défi 1D",
+                "Défi 1E",
+                "Défi 1F",
+                "Défi 1G",
+                "Défi 1H",
+                "Défi 1I",
+                "Défi 1J"
+            ]
+        },
+        {
+            "id": 2,
+            "challenges": [
+                "Défi 2A",
+                "Défi 2B",
+                "Défi 2C",
+                "Défi 2D",
+                "Défi 2E",
+                "Défi 2F",
+                "Défi 2G",
+                "Défi 2H",
+                "Défi 2I",
+                "Défi 2J"
+            ]
+        },
+        {
+            "id": 3,
+            "challenges": [
+                "Défi 3A",
+                "Défi 3B",
+                "Défi 3C",
+                "Défi 3D",
+                "Défi 3E",
+                "Défi 3F",
+                "Défi 3G",
+                "Défi 3H",
+                "Défi 3I",
+                "Défi 3J"
+            ]
+        },
+        {
+            "id": 4,
+            "challenges": [
+                "Défi 4A",
+                "Défi 4B",
+                "Défi 4C",
+                "Défi 4D",
+                "Défi 4E",
+                "Défi 4F",
+                "Défi 4G",
+                "Défi 4H",
+                "Défi 4I",
+                "Défi 4J"
+            ]
+        },
+        {
+            "id": 5,
+            "challenges": [
+                "Défi 5A",
+                "Défi 5B",
+                "Défi 5C",
+                "Défi 5D",
+                "Défi 5E",
+                "Défi 5F",
+                "Défi 5G",
+                "Défi 5H",
+                "Défi 5I",
+                "Défi 5J"
+            ]
+        },
+        {
+            "id": 6,
+            "challenges": [
+                "Défi 6A",
+                "Défi 6B",
+                "Défi 6C",
+                "Défi 6D",
+                "Défi 6E",
+                "Défi 6F",
+                "Défi 6G",
+                "Défi 6H",
+                "Défi 6I",
+                "Défi 6J"
+            ]
+        },
+        {
+            "id": 7,
+            "challenges": [
+                "Défi 7A",
+                "Défi 7B",
+                "Défi 7C",
+                "Défi 7D",
+                "Défi 7E",
+                "Défi 7F",
+                "Défi 7G",
+                "Défi 7H",
+                "Défi 7I",
+                "Défi 7J"
+            ]
+        },
+        {
+            "id": 8,
+            "challenges": [
+                "Défi 8A",
+                "Défi 8B",
+                "Défi 8C",
+                "Défi 8D",
+                "Défi 8E",
+                "Défi 8F",
+                "Défi 8G",
+                "Défi 8H",
+                "Défi 8I",
+                "Défi 8J"
+            ]
+        },
+        {
+            "id": 9,
+            "challenges": [
+                "Défi 9A",
+                "Défi 9B",
+                "Défi 9C",
+                "Défi 9D",
+                "Défi 9E",
+                "Défi 9F",
+                "Défi 9G",
+                "Défi 9H",
+                "Défi 9I",
+                "Défi 9J"
+            ]
+        },
+        {
+            "id": 10,
+            "challenges": [
+                "Défi 10A",
+                "Défi 10B",
+                "Défi 10C",
+                "Défi 10D",
+                "Défi 10E",
+                "Défi 10F",
+                "Défi 10G",
+                "Défi 10H",
+                "Défi 10I",
+                "Défi 10J"
+            ]
+        },
+        {
+            "id": 11,
+            "challenges": [
+                "Défi 11A",
+                "Défi 11B",
+                "Défi 11C",
+                "Défi 11D",
+                "Défi 11E",
+                "Défi 11F",
+                "Défi 11G",
+                "Défi 11H",
+                "Défi 11I",
+                "Défi 11J"
+            ]
+        },
+        {
+            "id": 12,
+            "challenges": [
+                "Défi 12A",
+                "Défi 12B",
+                "Défi 12C",
+                "Défi 12D",
+                "Défi 12E",
+                "Défi 12F",
+                "Défi 12G",
+                "Défi 12H",
+                "Défi 12I",
+                "Défi 12J"
+            ]
+        },
+        {
+            "id": 13,
+            "challenges": [
+                "Défi 13A",
+                "Défi 13B",
+                "Défi 13C",
+                "Défi 13D",
+                "Défi 13E",
+                "Défi 13F",
+                "Défi 13G",
+                "Défi 13H",
+                "Défi 13I",
+                "Défi 13J"
+            ]
+        },
+        {
+            "id": 14,
+            "challenges": [
+                "Défi 14A",
+                "Défi 14B",
+                "Défi 14C",
+                "Défi 14D",
+                "Défi 14E",
+                "Défi 14F",
+                "Défi 14G",
+                "Défi 14H",
+                "Défi 14I",
+                "Défi 14J"
+            ]
+        },
+        {
+            "id": 15,
+            "challenges": [
+                "Défi 15A",
+                "Défi 15B",
+                "Défi 15C",
+                "Défi 15D",
+                "Défi 15E",
+                "Défi 15F",
+                "Défi 15G",
+                "Défi 15H",
+                "Défi 15I",
+                "Défi 15J"
+            ]
+        },
+        {
+            "id": 16,
+            "challenges": [
+                "Défi 16A",
+                "Défi 16B",
+                "Défi 16C",
+                "Défi 16D",
+                "Défi 16E",
+                "Défi 16F",
+                "Défi 16G",
+                "Défi 16H",
+                "Défi 16I",
+                "Défi 16J"
+            ]
+        },
+        {
+            "id": 17,
+            "challenges": [
+                "Défi 17A",
+                "Défi 17B",
+                "Défi 17C",
+                "Défi 17D",
+                "Défi 17E",
+                "Défi 17F",
+                "Défi 17G",
+                "Défi 17H",
+                "Défi 17I",
+                "Défi 17J"
+            ]
+        },
+        {
+            "id": 18,
+            "challenges": [
+                "Défi 18A",
+                "Défi 18B",
+                "Défi 18C",
+                "Défi 18D",
+                "Défi 18E",
+                "Défi 18F",
+                "Défi 18G",
+                "Défi 18H",
+                "Défi 18I",
+                "Défi 18J"
+            ]
+        },
+        {
+            "id": 19,
+            "challenges": [
+                "Défi 19A",
+                "Défi 19B",
+                "Défi 19C",
+                "Défi 19D",
+                "Défi 19E",
+                "Défi 19F",
+                "Défi 19G",
+                "Défi 19H",
+                "Défi 19I",
+                "Défi 19J"
+            ]
+        },
+        {
+            "id": 20,
+            "challenges": [
+                "Défi 20A",
+                "Défi 20B",
+                "Défi 20C",
+                "Défi 20D",
+                "Défi 20E",
+                "Défi 20F",
+                "Défi 20G",
+                "Défi 20H",
+                "Défi 20I",
+                "Défi 20J"
+            ]
+        },
+        {
+            "id": 21,
+            "challenges": [
+                "Défi 21A",
+                "Défi 21B",
+                "Défi 21C",
+                "Défi 21D",
+                "Défi 21E",
+                "Défi 21F",
+                "Défi 21G",
+                "Défi 21H",
+                "Défi 21I",
+                "Défi 21J"
+            ]
+        },
+        {
+            "id": 22,
+            "challenges": [
+                "Défi 22A",
+                "Défi 22B",
+                "Défi 22C",
+                "Défi 22D",
+                "Défi 22E",
+                "Défi 22F",
+                "Défi 22G",
+                "Défi 22H",
+                "Défi 22I",
+                "Défi 22J"
+            ]
+        },
+        {
+            "id": 23,
+            "challenges": [
+                "Défi 23A",
+                "Défi 23B",
+                "Défi 23C",
+                "Défi 23D",
+                "Défi 23E",
+                "Défi 23F",
+                "Défi 23G",
+                "Défi 23H",
+                "Défi 23I",
+                "Défi 23J"
+            ]
+        },
+        {
+            "id": 24,
+            "challenges": [
+                "Défi 24A",
+                "Défi 24B",
+                "Défi 24C",
+                "Défi 24D",
+                "Défi 24E",
+                "Défi 24F",
+                "Défi 24G",
+                "Défi 24H",
+                "Défi 24I",
+                "Défi 24J"
+            ]
+        },
+        {
+            "id": 25,
+            "challenges": [
+                "Défi 25A",
+                "Défi 25B",
+                "Défi 25C",
+                "Défi 25D",
+                "Défi 25E",
+                "Défi 25F",
+                "Défi 25G",
+                "Défi 25H",
+                "Défi 25I",
+                "Défi 25J"
+            ]
+        },
+        {
+            "id": 26,
+            "challenges": [
+                "Défi 26A",
+                "Défi 26B",
+                "Défi 26C",
+                "Défi 26D",
+                "Défi 26E",
+                "Défi 26F",
+                "Défi 26G",
+                "Défi 26H",
+                "Défi 26I",
+                "Défi 26J"
+            ]
+        },
+        {
+            "id": 27,
+            "challenges": [
+                "Défi 27A",
+                "Défi 27B",
+                "Défi 27C",
+                "Défi 27D",
+                "Défi 27E",
+                "Défi 27F",
+                "Défi 27G",
+                "Défi 27H",
+                "Défi 27I",
+                "Défi 27J"
+            ]
+        },
+        {
+            "id": 28,
+            "challenges": [
+                "Défi 28A",
+                "Défi 28B",
+                "Défi 28C",
+                "Défi 28D",
+                "Défi 28E",
+                "Défi 28F",
+                "Défi 28G",
+                "Défi 28H",
+                "Défi 28I",
+                "Défi 28J"
+            ]
+        },
+        {
+            "id": 29,
+            "challenges": [
+                "Défi 29A",
+                "Défi 29B",
+                "Défi 29C",
+                "Défi 29D",
+                "Défi 29E",
+                "Défi 29F",
+                "Défi 29G",
+                "Défi 29H",
+                "Défi 29I",
+                "Défi 29J"
+            ]
+        },
+        {
+            "id": 30,
+            "challenges": [
+                "Défi 30A",
+                "Défi 30B",
+                "Défi 30C",
+                "Défi 30D",
+                "Défi 30E",
+                "Défi 30F",
+                "Défi 30G",
+                "Défi 30H",
+                "Défi 30I",
+                "Défi 30J"
+            ]
+        },
+        {
+            "id": 31,
+            "challenges": [
+                "Défi 31A",
+                "Défi 31B",
+                "Défi 31C",
+                "Défi 31D",
+                "Défi 31E",
+                "Défi 31F",
+                "Défi 31G",
+                "Défi 31H",
+                "Défi 31I",
+                "Défi 31J"
+            ]
+        },
+        {
+            "id": 32,
+            "challenges": [
+                "Défi 32A",
+                "Défi 32B",
+                "Défi 32C",
+                "Défi 32D",
+                "Défi 32E",
+                "Défi 32F",
+                "Défi 32G",
+                "Défi 32H",
+                "Défi 32I",
+                "Défi 32J"
+            ]
+        },
+        {
+            "id": 33,
+            "challenges": [
+                "Défi 33A",
+                "Défi 33B",
+                "Défi 33C",
+                "Défi 33D",
+                "Défi 33E",
+                "Défi 33F",
+                "Défi 33G",
+                "Défi 33H",
+                "Défi 33I",
+                "Défi 33J"
+            ]
+        },
+        {
+            "id": 34,
+            "challenges": [
+                "Défi 34A",
+                "Défi 34B",
+                "Défi 34C",
+                "Défi 34D",
+                "Défi 34E",
+                "Défi 34F",
+                "Défi 34G",
+                "Défi 34H",
+                "Défi 34I",
+                "Défi 34J"
+            ]
+        },
+        {
+            "id": 35,
+            "challenges": [
+                "Défi 35A",
+                "Défi 35B",
+                "Défi 35C",
+                "Défi 35D",
+                "Défi 35E",
+                "Défi 35F",
+                "Défi 35G",
+                "Défi 35H",
+                "Défi 35I",
+                "Défi 35J"
+            ]
+        },
+        {
+            "id": 36,
+            "challenges": [
+                "Défi 36A",
+                "Défi 36B",
+                "Défi 36C",
+                "Défi 36D",
+                "Défi 36E",
+                "Défi 36F",
+                "Défi 36G",
+                "Défi 36H",
+                "Défi 36I",
+                "Défi 36J"
+            ]
+        },
+        {
+            "id": 37,
+            "challenges": [
+                "Défi 37A",
+                "Défi 37B",
+                "Défi 37C",
+                "Défi 37D",
+                "Défi 37E",
+                "Défi 37F",
+                "Défi 37G",
+                "Défi 37H",
+                "Défi 37I",
+                "Défi 37J"
+            ]
+        },
+        {
+            "id": 38,
+            "challenges": [
+                "Défi 38A",
+                "Défi 38B",
+                "Défi 38C",
+                "Défi 38D",
+                "Défi 38E",
+                "Défi 38F",
+                "Défi 38G",
+                "Défi 38H",
+                "Défi 38I",
+                "Défi 38J"
+            ]
+        },
+        {
+            "id": 39,
+            "challenges": [
+                "Défi 39A",
+                "Défi 39B",
+                "Défi 39C",
+                "Défi 39D",
+                "Défi 39E",
+                "Défi 39F",
+                "Défi 39G",
+                "Défi 39H",
+                "Défi 39I",
+                "Défi 39J"
+            ]
+        },
+        {
+            "id": 40,
+            "challenges": [
+                "Défi 40A",
+                "Défi 40B",
+                "Défi 40C",
+                "Défi 40D",
+                "Défi 40E",
+                "Défi 40F",
+                "Défi 40G",
+                "Défi 40H",
+                "Défi 40I",
+                "Défi 40J"
+            ]
+        },
+        {
+            "id": 41,
+            "challenges": [
+                "Défi 41A",
+                "Défi 41B",
+                "Défi 41C",
+                "Défi 41D",
+                "Défi 41E",
+                "Défi 41F",
+                "Défi 41G",
+                "Défi 41H",
+                "Défi 41I",
+                "Défi 41J"
+            ]
+        },
+        {
+            "id": 42,
+            "challenges": [
+                "Défi 42A",
+                "Défi 42B",
+                "Défi 42C",
+                "Défi 42D",
+                "Défi 42E",
+                "Défi 42F",
+                "Défi 42G",
+                "Défi 42H",
+                "Défi 42I",
+                "Défi 42J"
+            ]
+        },
+        {
+            "id": 43,
+            "challenges": [
+                "Défi 43A",
+                "Défi 43B",
+                "Défi 43C",
+                "Défi 43D",
+                "Défi 43E",
+                "Défi 43F",
+                "Défi 43G",
+                "Défi 43H",
+                "Défi 43I",
+                "Défi 43J"
+            ]
+        },
+        {
+            "id": 44,
+            "challenges": [
+                "Défi 44A",
+                "Défi 44B",
+                "Défi 44C",
+                "Défi 44D",
+                "Défi 44E",
+                "Défi 44F",
+                "Défi 44G",
+                "Défi 44H",
+                "Défi 44I",
+                "Défi 44J"
+            ]
+        },
+        {
+            "id": 45,
+            "challenges": [
+                "Défi 45A",
+                "Défi 45B",
+                "Défi 45C",
+                "Défi 45D",
+                "Défi 45E",
+                "Défi 45F",
+                "Défi 45G",
+                "Défi 45H",
+                "Défi 45I",
+                "Défi 45J"
+            ]
+        },
+        {
+            "id": 46,
+            "challenges": [
+                "Défi 46A",
+                "Défi 46B",
+                "Défi 46C",
+                "Défi 46D",
+                "Défi 46E",
+                "Défi 46F",
+                "Défi 46G",
+                "Défi 46H",
+                "Défi 46I",
+                "Défi 46J"
+            ]
+        },
+        {
+            "id": 47,
+            "challenges": [
+                "Défi 47A",
+                "Défi 47B",
+                "Défi 47C",
+                "Défi 47D",
+                "Défi 47E",
+                "Défi 47F",
+                "Défi 47G",
+                "Défi 47H",
+                "Défi 47I",
+                "Défi 47J"
+            ]
+        },
+        {
+            "id": 48,
+            "challenges": [
+                "Défi 48A",
+                "Défi 48B",
+                "Défi 48C",
+                "Défi 48D",
+                "Défi 48E",
+                "Défi 48F",
+                "Défi 48G",
+                "Défi 48H",
+                "Défi 48I",
+                "Défi 48J"
+            ]
+        }
+    ]
+}
