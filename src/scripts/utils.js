@@ -25,8 +25,20 @@ export function getContrast(hexcolor) {
     // Check contrast
     return yiq >= 128 ? "black" : "white";
 }
+export function setColor(colorElement, players, currentPlayerIndex) {
+    return (colorElement.style.color =
+        players[currentPlayerIndex].getElement().style.color);
+}
 
-export function getRandomChallenge(playerPosition) {
+export function setBackGroundColor(
+    backgroundElement,
+    players,
+    currentPlayerIndex
+) {
+    return (backgroundElement.style.backgroundColor =
+        players[currentPlayerIndex].getElement().style.backgroundColor);
+}
+export async function getRandomChallenge(playerPosition) {
     // Récupérez la liste de défis associée à la position du joueur depuis le fichier JSON
     return fetch("src/defis/defis.json")
         .then((response) => response.json())
@@ -50,7 +62,13 @@ export function getRandomChallenge(playerPosition) {
             return "Erreur lors du chargement des défis.";
         });
 }
-export function updatePlayerProgress(position1, position2, cells, players) {
+export function updatePlayerProgress(
+    position1,
+    position2,
+    cells,
+    players,
+    currentPlayerIndex
+) {
     const progress1 = (position1 / cells.length) * 100;
     const progress2 = (position2 / cells.length) * 100;
 
@@ -62,23 +80,68 @@ export function updatePlayerProgress(position1, position2, cells, players) {
     const player2Color =
         players[1].getElement().style.backgroundColor || "#0000ff";
 
-    document.getElementById(
-        "player1-progress"
-    ).textContent = `${player1Name} - ${Math.floor(progress1)}%`;
-    document.getElementById("player1-progress").style.backgroundColor =
-        player1Color;
-    document.getElementById("player1-progress").style.width = `${progress1}%`;
-    document
-        .getElementById("player1-progress")
-        .setAttribute("aria-valuenow", progress1);
-    document.getElementById(
-        "player2-progress"
-    ).textContent = `${player2Name} - ${Math.floor(progress2)}%`;
-    document.getElementById(
-        "player2-progress"
-    ).style.backgroundColor = `${player2Color}`;
-    document.getElementById("player2-progress").style.width = `${progress2}%`;
-    document
-        .getElementById("player2-progress")
-        .setAttribute("aria-valuenow", progress2);
+    if (currentPlayerIndex === 1) {
+        document.getElementById(
+            "player1-progress"
+        ).textContent = `${player1Name} - ${Math.floor(progress1)}%`;
+        document.getElementById("player1-progress").style.backgroundColor =
+            player1Color;
+        document.getElementById(
+            "player1-progress"
+        ).style.width = `${progress1}%`;
+        document
+            .getElementById("player1-progress")
+            .setAttribute("aria-valuenow", progress1);
+    } else {
+        document.getElementById(
+            "player2-progress"
+        ).textContent = `${player2Name} - ${Math.floor(progress2)}%`;
+        document.getElementById(
+            "player2-progress"
+        ).style.backgroundColor = `${player2Color}`;
+        document.getElementById(
+            "player2-progress"
+        ).style.width = `${progress2}%`;
+        document
+            .getElementById("player2-progress")
+            .setAttribute("aria-valuenow", progress2);
+    }
+}
+
+export function updateChallengeResult(
+    position1,
+    position2,
+    currentPlayerIndex
+) {
+    const totalPosition = currentPlayerIndex === 1 ? position1 : position2;
+
+    getRandomChallenge(totalPosition)
+        .then((playerChallenge) => {
+            const contentModalDice =
+                document.getElementById("contentModalDice");
+            const defiResultElement = document.createElement("div");
+            defiResultElement.setAttribute("id", "defiResult");
+            contentModalDice.appendChild(defiResultElement);
+
+            document
+                .getElementById("defiResult")
+                .addEventListener("click", function () {
+                    setTimeout(() => {
+                        document.getElementById("startDefi").disabled = false;
+                    }, 3000);
+                });
+
+            defiResultElement.innerHTML = `
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDefi" aria-expanded="false" aria-controls="collapseDefi">
+                    Voir le défi
+                </button>
+                <div class="collapse" id="collapseDefi">
+                    <div class="card card-body" id="defiResult">
+                        ${playerChallenge}
+                    </div>
+                </div>`;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }

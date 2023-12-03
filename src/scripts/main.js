@@ -2,6 +2,9 @@ import {
     getRandomChallenge,
     getContrast,
     updatePlayerProgress,
+    updateChallengeResult,
+    setBackGroundColor,
+    setColor,
 } from "./utils.js";
 import Player from "./player.js";
 import Dice from "./dice.js";
@@ -25,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const startGameButton = document.getElementById("startGame");
     const startGameModal = initModal("startGameModal");
+    initModal("diceModal");
     const diceModal = document.getElementById("diceModal");
+
     startGameModal.show(); // Ouvrir la pop-up au chargement de la page
     startGameButton.addEventListener("click", function () {
         const player1Name =
@@ -41,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         players[0].getElement().dataset.name = player1Name;
         players[0].getElement().style.backgroundColor = player1Color;
         players[0].getElement().style.color = contrastColor1;
+
         players[1].getElement().dataset.name = player2Name;
         players[1].getElement().style.backgroundColor = player2Color;
         players[1].getElement().style.color = contrastColor2;
@@ -48,16 +54,36 @@ document.addEventListener("DOMContentLoaded", function () {
         players[0].updatePlayerName();
         players[1].updatePlayerName();
 
+        const buttonDice = document.getElementById("dice");
+        buttonDice.innerHTML = `${
+            players[currentPlayerIndex].getElement().dataset.name
+        } lance les dés`;
+
+        setBackGroundColor(buttonDice, players, currentPlayerIndex);
+        setColor(buttonDice, players, currentPlayerIndex);
+
         startGameModal.hide(); // Fermer la pop-up après le début du jeu
     });
 
     let currentPlayerIndex = 0;
     let position1 = 0;
     let position2 = 0;
+    let totalSteps1 = 0;
+    let totalSteps2 = 0;
 
     scrollManager.setPlayersAndIndex(players, currentPlayerIndex);
     diceModal.addEventListener("hidden.bs.modal", function () {
         scrollManager.scrollToCurrentPlayer();
+        document.getElementById("startDefi").disabled = true;
+        document.getElementById("defiResult").remove();
+
+        const buttonDice = document.getElementById("dice");
+        buttonDice.innerHTML = `${
+            players[currentPlayerIndex].getElement().dataset.name
+        } lance les dés`;
+
+        setBackGroundColor(buttonDice, players, currentPlayerIndex);
+        setColor(buttonDice, players, currentPlayerIndex);
     });
 
     function playTurn() {
@@ -83,39 +109,65 @@ document.addEventListener("DOMContentLoaded", function () {
                 position1: newPosition1,
                 position2: newPosition2,
                 currentPlayerIndex: newCurrentPlayerIndex,
+                totalSteps1: newTotalSteps1,
+                totalSteps2: newTotalSteps2,
             } = movePlayer(
                 currentPlayerIndex,
                 totalSteps,
                 position1,
                 position2,
+                totalSteps1,
+                totalSteps2,
                 players,
                 cells
             );
 
             position1 = newPosition1;
             position2 = newPosition2;
+            totalSteps1 = newTotalSteps1;
+            totalSteps2 = newTotalSteps2;
+
             currentPlayerIndex = newCurrentPlayerIndex;
-            console.log(newPosition1);
-            getRandomChallenge(newPosition1 + newPosition2)
+
+            const currentPosition =
+                currentPlayerIndex === 0 ? position1 : position2;
+            const currentTotalSteps =
+                currentPlayerIndex === 0 ? totalSteps1 : totalSteps2;
+            const newPosition = currentPosition + currentTotalSteps;
+
+            getRandomChallenge(newPosition)
                 .then((playerChallenge) => {
-                    const modalResultElement =
-                        document.getElementById("dice-modal-result");
-                    modalResultElement.innerHTML = `
-                    <div id="shwDiceResult"><br>
-                        <span style="color:${playerColor}"><i class="fa-solid fa-4x ${
-                        dice1[1]
-                    }"></i><i class="fa-solid fa-4x ${dice2[1]}"></i></span>
-                    <br><br>${playerName}, vous avancez de :
-                    <br>
-                    <span style="color:${playerColor}">${totalSteps}</span> cases
-                    <div>
-                        Vous arrivez sur la case : <span style="color:${playerColor}">${
-                        newPosition1 + newPosition2
-                    }</span>
-                        Votre défi est : ${playerChallenge}
-                    </div>
-                </div>`;
-                    updatePlayerProgress(position1, position2, cells, players);
+                    if (currentPlayerIndex === 0) {
+                        position1 = newPosition;
+                    } else {
+                        position2 = newPosition;
+                    }
+
+                    dice.displayDiceResult(
+                        playerName,
+                        playerColor,
+                        dice1,
+                        dice2,
+                        currentPlayerIndex,
+                        position1,
+                        position2
+                    );
+
+                    setTimeout(() => {
+                        updateChallengeResult(
+                            position1,
+                            position2,
+                            currentPlayerIndex
+                        );
+                    }, 1000);
+
+                    updatePlayerProgress(
+                        position1,
+                        position2,
+                        cells,
+                        players,
+                        currentPlayerIndex
+                    );
                 })
                 .catch((error) => {
                     console.error(error);
@@ -126,8 +178,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 500);
 
             diceAnimation.classList.remove("fa-spin");
+            getRandomChallenge(position1, position1)
+                .then((playerChallenge) => {})
+                .catch((error) => {
+                    console.error(error);
+                });
         }, 2500);
     }
+
     updatePlayerPosition(
         currentPlayerIndex,
         position1,

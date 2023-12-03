@@ -8,14 +8,14 @@ export function createBoard() {
 
     for (let i = 0; i <= 99; i++) {
         const cell = document.createElement("div");
-        cell.textContent = i;
+        cell.innerHTML = `<span class='number'>${i}</span>`;
         board.appendChild(cell);
         cell.classList.add("cell");
 
         if (i === 0) {
-            cell.textContent = "Départ";
+            cell.innerHTML = "<span class='alphaOmega'>Départ</span>";
         } else if (i === 99) {
-            cell.textContent = "Arrivée";
+            cell.innerHTML = "<span class='alphaOmega'>Arrivée</span>";
         }
 
         cells.push(cell);

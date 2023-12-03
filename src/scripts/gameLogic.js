@@ -1,12 +1,13 @@
 // gameLogic.js
 import scrollManager from "./scroll.js";
-import { getRandomChallenge } from "./utils.js";
 
 export function movePlayer(
     playerIndex,
     totalSteps,
     position1,
     position2,
+    totalSteps1,
+    totalSteps2,
     players,
     cells
 ) {
@@ -26,8 +27,10 @@ export function movePlayer(
 
         if (playerIndex === 0) {
             position1 = newPosition;
+            totalSteps1 = totalSteps1;
         } else {
             position2 = newPosition;
+            totalSteps2 = totalSteps2;
         }
         updatePlayerPosition(
             updatedPlayerIndex,
@@ -39,7 +42,13 @@ export function movePlayer(
 
         scrollManager.setPlayersAndIndex(players, updatedPlayerIndex);
 
-        return { position1, position2, currentPlayerIndex: updatedPlayerIndex };
+        return {
+            position1,
+            position2,
+            currentPlayerIndex: updatedPlayerIndex,
+            totalSteps1,
+            totalSteps2,
+        };
     }
 }
 
@@ -81,73 +90,4 @@ export function updatePlayerPosition(
     players[1].getElement().style.transform = `translate(${
         left2 - boardRect.left + (cellSize - playerSize) / 2
     }px, ${top2 - boardRect.top + (cellSize - playerSize) / 2}px)`;
-}
-export function playTurn(
-    dice,
-    currentPlayerIndex,
-    position1,
-    position2,
-    players
-) {
-    // Affichage de la fenêtre modale d'animation de dé
-    const diceAnimation = document.getElementById("diceAnimation");
-    diceAnimation.classList.add("fa-spin");
-    const shwDiceResult = document.getElementById("shwDiceResult");
-    if (shwDiceResult) {
-        shwDiceResult.remove();
-    }
-
-    const playerName =
-        players[currentPlayerIndex].getElement().dataset.name || "Joueur 1";
-    const playerColor =
-        players[currentPlayerIndex].getElement().style.backgroundColor ||
-        "#ff0000";
-
-    // Délai avant de déplacer le joueur
-    setTimeout(() => {
-        // Lancer le déplacement du joueur
-        const dice1 = dice.roll();
-        const dice2 = dice.roll();
-        const totalSteps = dice1[0] + dice2[0];
-
-        const newPosition =
-            currentPlayerIndex === 0
-                ? position1 + totalSteps
-                : position2 + totalSteps;
-
-        getRandomChallenge(newPosition)
-            .then((playerChallenge) => {
-                const modalResultElement =
-                    document.getElementById("dice-modal-result");
-                modalResultElement.innerHTML = `<div id="shwDiceResult"><br>
-                    <span style="color:${playerColor}"><i class="fa-solid fa-4x ${dice1[1]}"></i>   <i class="fa-solid fa-4x ${dice2[1]}"></i></span>
-                    <br><br>${playerName}, vous avancez de :
-                    <br>
-                    <span style="color:${playerColor}">${totalSteps}</span> cases
-                    <div>
-                        Vous arrivez sur la case : <span style="color:${playerColor}">${newPosition}</span>
-                        Votre défi est : ${playerChallenge}
-                    </div>
-                </div>`;
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-
-        movePlayer(
-            currentPlayerIndex,
-            newPosition,
-            position1,
-            position2,
-            players
-        ); // Lancer le déplacement du joueur après le délai
-        scrollManager.scrollToNextPlayer();
-
-        setTimeout(() => {
-            scrollManager.scrollToCurrentPlayer();
-        }, 500); // Vous pouvez ajuster cette durée en fonction de vos besoins
-
-        // Affichage du résultat du dé
-        diceAnimation.classList.remove("fa-spin");
-    }, 2500); // Durée totale de l'animation en millisecondes
 }
