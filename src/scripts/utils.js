@@ -21,7 +21,6 @@ export function getContrast(hexcolor) {
 
     // Get YIQ ratio
     let yiq = (r * 299 + g * 587 + b * 114) / 1000;
-
     // Check contrast
     return yiq >= 128 ? "black" : "white";
 }
@@ -89,6 +88,7 @@ export function updatePlayerProgress(
         document.getElementById(
             "player1-progress"
         ).style.width = `${progress1}%`;
+
         document
             .getElementById("player1-progress")
             .setAttribute("aria-valuenow", progress1);

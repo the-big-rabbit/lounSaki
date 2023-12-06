@@ -59,6 +59,13 @@ document.addEventListener("DOMContentLoaded", function () {
             players[currentPlayerIndex].getElement().dataset.name
         } lance les dés`;
 
+        const contrastColorProgessBar1 =
+            document.getElementById("player1-progress");
+        const contrastColorProgessBar2 =
+            document.getElementById("player2-progress");
+        setColor(contrastColorProgessBar1, players, 0);
+        setColor(contrastColorProgessBar2, players, 1);
+
         setBackGroundColor(buttonDice, players, currentPlayerIndex);
         setColor(buttonDice, players, currentPlayerIndex);
 
@@ -185,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }, 2500);
     }
-
     updatePlayerPosition(
         currentPlayerIndex,
         position1,

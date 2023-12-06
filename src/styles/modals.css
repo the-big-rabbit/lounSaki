@@ -1,0 +1,68 @@
+#diceModal .modal-content {
+    backdrop-filter: blur(25px);
+}
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color: gray;
+    border-color: gray;
+}
+#dice {
+    margin-top: 20px;
+    background-color: #fff;
+    border: none;
+}
+#dice:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#dice-result {
+    margin-top: 10px;
+    font-size: 24px;
+}
+.cellModal {
+    width: 8vw;
+    height: 8vw;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.numberModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    aspect-ratio: 1/1;
+    font-size: 32px;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+form input {
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+form button {
+    padding: 10px;
+    cursor: pointer;
+}
+#shwDiceResult {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

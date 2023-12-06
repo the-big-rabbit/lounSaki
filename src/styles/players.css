@@ -1,0 +1,27 @@
+.player {
+    width: 5vw;
+
+    height: 5vw;
+
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.5s ease-in-out;
+    text-align: center;
+}
+#player1 {
+    z-index: 11;
+}
+#player2 {
+    z-index: 10;
+}
+
+.player-name {
+    position: absolute;
+    font-size: 12px;
+    margin-top: 5px;
+}
