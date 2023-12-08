@@ -5,6 +5,7 @@ import {
     updateChallengeResult,
     setBackGroundColor,
     setColor,
+    dragPlayerZone,
 } from "./utils.js";
 import Player from "./player.js";
 import Dice from "./dice.js";
@@ -30,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const startGameModal = initModal("startGameModal");
     initModal("diceModal");
     const diceModal = document.getElementById("diceModal");
+
+    var draggable = document.getElementById("draggable");
+    dragPlayerZone(draggable);
 
     startGameModal.show(); // Ouvrir la pop-up au chargement de la page
     startGameButton.addEventListener("click", function () {
@@ -79,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalSteps2 = 0;
 
     scrollManager.setPlayersAndIndex(players, currentPlayerIndex);
+
     diceModal.addEventListener("hidden.bs.modal", function () {
         scrollManager.scrollToCurrentPlayer();
         document.getElementById("startDefi").disabled = true;
@@ -126,7 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 totalSteps1,
                 totalSteps2,
                 players,
-                cells
+                cells,
+                playerColor,
+                getContrast(playerColor)
             );
 
             position1 = newPosition1;
@@ -199,6 +206,5 @@ document.addEventListener("DOMContentLoaded", function () {
         cells,
         players
     );
-
     document.getElementById("dice").addEventListener("click", playTurn);
 });

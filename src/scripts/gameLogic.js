@@ -9,10 +9,17 @@ export function movePlayer(
     totalSteps1,
     totalSteps2,
     players,
-    cells
+    cells,
+    playerColor,
+    playerContrastColor
 ) {
     const currentPosition = playerIndex === 0 ? position1 : position2;
     const newPosition = currentPosition + totalSteps;
+
+    let rgba;
+
+    rgba = playerColor.replace(/rgb/i, "rgba");
+    rgba = rgba.replace(/\)/i, ",0.15)");
 
     if (newPosition >= cells.length) {
         alert(
@@ -28,9 +35,21 @@ export function movePlayer(
         if (playerIndex === 0) {
             position1 = newPosition;
             totalSteps1 = totalSteps1;
+            cells[newPosition].classList.add("cell--active");
+            cells[
+                newPosition
+            ].style.boxShadow = `1px 1px 0 1px ${playerColor}, -1px 0 28px 0 ${rgba},
+        54px 54px 28px -10px ${rgba}`;
+            cells[newPosition].innerHtml = "Défi relevé !";
         } else {
             position2 = newPosition;
             totalSteps2 = totalSteps2;
+            cells[newPosition].classList.add("cell--active");
+            cells[
+                newPosition
+            ].style.boxShadow = `1px 1px 0 1px ${playerColor}, -1px 0 28px 0 ${rgba},
+        54px 54px 28px -10px ${rgba}`;
+            cells[newPosition].innerHtml = "Défi relevé !";
         }
         updatePlayerPosition(
             updatedPlayerIndex,
@@ -79,15 +98,25 @@ export function updatePlayerPosition(
         .getElement()
         .getBoundingClientRect().width; // Taille du joueur
 
+    const defiText = document.createTextNode("Défi relevé !");
+
+    diceModal.addEventListener("hidden.bs.modal", function () {
+        if (playerIndex === 1) {
+            position1 !== 0 ? cells[position1].appendChild(defiText) : "";
+        } else {
+            position2 !== 0 ? cells[position2].appendChild(defiText) : "";
+        }
+    });
+
     // Ajuster la position pour centrer le joueur dans la cellule
     const { top: top1, left: left1 } = cells[position1].getBoundingClientRect();
     players[0].getElement().style.transform = `translate(${
-        left1 - boardRect.left + (cellSize - playerSize) / 2
+        left1 - boardRect.left + (cellSize - playerSize / 5) / 2
     }px, ${top1 - boardRect.top + (cellSize - playerSize) / 2}px)`;
 
     // Faire de même pour le deuxième joueur
     const { top: top2, left: left2 } = cells[position2].getBoundingClientRect();
     players[1].getElement().style.transform = `translate(${
-        left2 - boardRect.left + (cellSize - playerSize) / 2
+        left2 - boardRect.left + (cellSize - playerSize / 5) / 2
     }px, ${top2 - boardRect.top + (cellSize - playerSize) / 2}px)`;
 }

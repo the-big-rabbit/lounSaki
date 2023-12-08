@@ -12,6 +12,10 @@
     font-weight: bold;
     transition: transform 0.5s ease-in-out;
     text-align: center;
+    transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg)
+        scale(1.3);
+    border: 2px solid #e6e6e6;
+    box-shadow: 0 40px 30px -20px rgba(0, 0, 0, 0.8);
 }
 #player1 {
     z-index: 11;
