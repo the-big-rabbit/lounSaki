@@ -5,4 +5,4 @@ export function initModal(modalId) {
         backdrop: "static",
     });
     return modal;
-}
+} // Initialiser les modales

@@ -2,121 +2,66 @@
 import scrollManager from "./scroll.js";
 
 export function movePlayer(
-    playerIndex,
-    totalSteps,
-    position1,
-    position2,
-    totalSteps1,
-    totalSteps2,
+    currentPlayerIndex,
+    newPosition,
     players,
     cells,
-    playerColor,
-    playerContrastColor
+    playerColor
 ) {
-    const currentPosition = playerIndex === 0 ? position1 : position2;
-    const newPosition = currentPosition + totalSteps;
-
     let rgba;
-
     rgba = playerColor.replace(/rgb/i, "rgba");
     rgba = rgba.replace(/\)/i, ",0.15)");
-
     if (newPosition >= cells.length) {
         alert(
             `${
                 players[playerIndex].getElement().dataset.name
             }, vous avez gagné !`
         );
-        resetGame(position1, position2, playerIndex, players);
-        return { position1, position2, currentPlayerIndex: playerIndex };
-    } else {
-        let updatedPlayerIndex = playerIndex === 0 ? 1 : 0;
-
-        if (playerIndex === 0) {
-            position1 = newPosition;
-            totalSteps1 = totalSteps1;
-            cells[newPosition].classList.add("cell--active");
-            cells[
-                newPosition
-            ].style.boxShadow = `1px 1px 0 1px ${playerColor}, -1px 0 28px 0 ${rgba},
-        54px 54px 28px -10px ${rgba}`;
-            cells[newPosition].innerHtml = "Défi relevé !";
-        } else {
-            position2 = newPosition;
-            totalSteps2 = totalSteps2;
-            cells[newPosition].classList.add("cell--active");
-            cells[
-                newPosition
-            ].style.boxShadow = `1px 1px 0 1px ${playerColor}, -1px 0 28px 0 ${rgba},
-        54px 54px 28px -10px ${rgba}`;
-            cells[newPosition].innerHtml = "Défi relevé !";
-        }
-        updatePlayerPosition(
-            updatedPlayerIndex,
-            position1,
-            position2,
-            cells,
-            players
-        );
-
-        scrollManager.setPlayersAndIndex(players, updatedPlayerIndex);
-
+        resetGame(newPosition, players);
         return {
-            position1,
-            position2,
+            newPosition,
+            playerIndex,
+        };
+    } else {
+        let updatedPlayerIndex = (currentPlayerIndex + 1) % players.length;
+        cells[newPosition].classList.add("cell--active");
+        cells[
+            newPosition
+        ].style.boxShadow = `1px 1px 0 1px ${playerColor}, -1px 0 28px 0 ${rgba},
+        54px 54px 28px -10px ${rgba}`;
+        cells[newPosition].innerHtml = "Défi relevé !";
+        updatePlayerPosition(newPosition, cells, players[currentPlayerIndex]);
+        scrollManager.setPlayersAndIndex(players, updatedPlayerIndex);
+        return {
             currentPlayerIndex: updatedPlayerIndex,
-            totalSteps1,
-            totalSteps2,
         };
     }
-}
+} // Déplacer le joueur sur le plateau
 
-export function resetGame(position1, position2, currentPlayerIndex, players) {
-    position1 = 0;
-    position2 = 0;
-    currentPlayerIndex = 0;
-    updatePlayerPosition(
-        players,
-        currentPlayerIndex,
-        position1,
-        position2,
-        cells
-    );
+export function resetGame(newPosition, players) {
+    newPosition = 0;
+    newSteps = 0;
+    players.forEach((player) => {
+        updatePlayerPosition(newPosition, cells, player);
+    });
     scrollManager.scrollToPlayer(() => {});
     playerNamesForm.style.display = "block";
-}
-export function updatePlayerPosition(
-    playerIndex,
-    position1,
-    position2,
-    cells,
-    players
-) {
+} // Réinitialiser le jeu
+
+export function updatePlayerPosition(currentPosition, cells, player) {
     const boardRect = board.getBoundingClientRect(); // Obtenir les dimensions du board
     const cellSize = cells[0].getBoundingClientRect().width; // Taille de la cellule + espacement
-    const playerSize = players[playerIndex]
-        .getElement()
-        .getBoundingClientRect().width; // Taille du joueur
-
+    const { top: top, left: left } =
+        cells[currentPosition].getBoundingClientRect();
+    const playerSize = player.getElement().getBoundingClientRect().width; // Taille du joueur
     const defiText = document.createTextNode("Défi relevé !");
-
     diceModal.addEventListener("hidden.bs.modal", function () {
-        if (playerIndex === 1) {
-            position1 !== 0 ? cells[position1].appendChild(defiText) : "";
-        } else {
-            position2 !== 0 ? cells[position2].appendChild(defiText) : "";
-        }
+        currentPosition !== 0
+            ? cells[currentPosition].appendChild(defiText)
+            : "";
     });
-
     // Ajuster la position pour centrer le joueur dans la cellule
-    const { top: top1, left: left1 } = cells[position1].getBoundingClientRect();
-    players[0].getElement().style.transform = `translate(${
-        left1 - boardRect.left + (cellSize - playerSize / 5) / 2
-    }px, ${top1 - boardRect.top + (cellSize - playerSize) / 2}px)`;
-
-    // Faire de même pour le deuxième joueur
-    const { top: top2, left: left2 } = cells[position2].getBoundingClientRect();
-    players[1].getElement().style.transform = `translate(${
-        left2 - boardRect.left + (cellSize - playerSize / 5) / 2
-    }px, ${top2 - boardRect.top + (cellSize - playerSize) / 2}px)`;
-}
+    player.getElement().style.transform = `translate(${
+        left - boardRect.left + (cellSize - playerSize / 5) / 2
+    }px, ${top - boardRect.top + (cellSize - playerSize) / 2}px)`;
+} // Mettre à jour la position du joueur sur le plateau

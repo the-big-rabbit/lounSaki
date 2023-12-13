@@ -1,10 +1,7 @@
 export function getContrast(hexcolor) {
-    // If a leading # is provided, remove it
     if (hexcolor.slice(0, 1) === "#") {
         hexcolor = hexcolor.slice(1);
     }
-
-    // If a three-character hexcode, make six-character
     if (hexcolor.length === 3) {
         hexcolor = hexcolor
             .split("")
@@ -13,21 +10,18 @@ export function getContrast(hexcolor) {
             })
             .join("");
     }
-
-    // Convert to RGB value
     let r = parseInt(hexcolor.substr(0, 2), 16);
     let g = parseInt(hexcolor.substr(2, 2), 16);
     let b = parseInt(hexcolor.substr(4, 2), 16);
-
-    // Get YIQ ratio
     let yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    // Check contrast
+
     return yiq >= 128 ? "black" : "white";
-}
+} // Récupérer la couleur contrastée pour le texte
+
 export function setColor(colorElement, players, currentPlayerIndex) {
     return (colorElement.style.color =
         players[currentPlayerIndex].getElement().style.color);
-}
+} // Mettre à jour la couleur du texte
 
 export function setBackGroundColor(
     backgroundElement,
@@ -36,7 +30,8 @@ export function setBackGroundColor(
 ) {
     return (backgroundElement.style.backgroundColor =
         players[currentPlayerIndex].getElement().style.backgroundColor);
-}
+} // Mettre à jour la couleur de fond
+
 export async function getRandomChallenge(playerPosition) {
     // Récupérez la liste de défis associée à la position du joueur depuis le fichier JSON
     return fetch("src/defis/defis.json")
@@ -44,7 +39,6 @@ export async function getRandomChallenge(playerPosition) {
         .then((challengesData) => {
             const challengesList =
                 challengesData.cases[(playerPosition - 1).toString()];
-
             if (!challengesList) {
                 return "Aucun défi n'est défini pour cette position.";
             }
@@ -53,76 +47,49 @@ export async function getRandomChallenge(playerPosition) {
                 challengesList.challenges[
                     Math.floor(Math.random() * challengesList.challenges.length)
                 ];
-
             return randomChallenge;
         })
         .catch((error) => {
             console.error("Erreur lors du chargement du fichier JSON :", error);
             return "Erreur lors du chargement des défis.";
         });
-}
+} // Récupérer un défi aléatoire selon la position du joueur
+
 export function updatePlayerProgress(
-    position1,
-    position2,
+    newPosition,
     cells,
     players,
     currentPlayerIndex
 ) {
-    const progress1 = (position1 / cells.length) * 100;
-    const progress2 = (position2 / cells.length) * 100;
+    const progress = (newPosition / cells.length) * 100;
+    const playerName =
+        players[currentPlayerIndex].getElement().dataset.name ||
+        `Joueur ${currentPlayerIndex}`;
+    const playerColor =
+        players[currentPlayerIndex].getElement().style.backgroundColor ||
+        "#ff0000";
+    document.getElementById(
+        `player${currentPlayerIndex + 1}-progress`
+    ).textContent = `${playerName} - ${Math.floor(progress)}%`;
+    document.getElementById(
+        `player${currentPlayerIndex + 1}-progress`
+    ).style.backgroundColor = playerColor;
+    document.getElementById(
+        `player${currentPlayerIndex + 1}-progress`
+    ).style.width = `${progress}%`;
+    document
+        .getElementById(`player${currentPlayerIndex + 1}-progress`)
+        .setAttribute("aria-valuenow", progress);
+} // Mettre à jour la progression visuelle du joueur
 
-    const player1Name = players[0].getElement().dataset.name || "Joueur 1";
-    const player2Name = players[1].getElement().dataset.name || "Joueur 2";
-
-    const player1Color =
-        players[0].getElement().style.backgroundColor || "#ff0000";
-    const player2Color =
-        players[1].getElement().style.backgroundColor || "#0000ff";
-
-    if (currentPlayerIndex === 1) {
-        document.getElementById(
-            "player1-progress"
-        ).textContent = `${player1Name} - ${Math.floor(progress1)}%`;
-        document.getElementById("player1-progress").style.backgroundColor =
-            player1Color;
-        document.getElementById(
-            "player1-progress"
-        ).style.width = `${progress1}%`;
-
-        document
-            .getElementById("player1-progress")
-            .setAttribute("aria-valuenow", progress1);
-    } else {
-        document.getElementById(
-            "player2-progress"
-        ).textContent = `${player2Name} - ${Math.floor(progress2)}%`;
-        document.getElementById(
-            "player2-progress"
-        ).style.backgroundColor = `${player2Color}`;
-        document.getElementById(
-            "player2-progress"
-        ).style.width = `${progress2}%`;
-        document
-            .getElementById("player2-progress")
-            .setAttribute("aria-valuenow", progress2);
-    }
-}
-
-export function updateChallengeResult(
-    position1,
-    position2,
-    currentPlayerIndex
-) {
-    const totalPosition = currentPlayerIndex === 1 ? position1 : position2;
-
-    getRandomChallenge(totalPosition)
+export function updateChallengeResult(newPosition) {
+    getRandomChallenge(newPosition)
         .then((playerChallenge) => {
             const contentModalDice =
                 document.getElementById("contentModalDice");
             const defiResultElement = document.createElement("div");
             defiResultElement.setAttribute("id", "defiResult");
             contentModalDice.appendChild(defiResultElement);
-
             document
                 .getElementById("defiResult")
                 .addEventListener("click", function () {
@@ -130,7 +97,6 @@ export function updateChallengeResult(
                         document.getElementById("startDefi").disabled = false;
                     }, 1000);
                 });
-
             defiResultElement.innerHTML = `
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDefi" aria-expanded="false" aria-controls="collapseDefi">
                     Voir le défi
@@ -144,31 +110,28 @@ export function updateChallengeResult(
         .catch((error) => {
             console.error(error);
         });
-}
+} // Afficher le défi
+
 export function dragPlayerZone(draggable) {
     var posX = 0,
         posY = 0,
         mouseX = 0,
         mouseY = 0;
-
     draggable.addEventListener("mousedown", mouseDown, false);
     window.addEventListener("mouseup", mouseUp, false);
-
     function mouseDown(e) {
         e.preventDefault();
         posX = e.clientX - draggable.offsetLeft;
         posY = e.clientY - draggable.offsetTop;
         window.addEventListener("mousemove", moveElement, false);
     }
-
     function mouseUp() {
         window.removeEventListener("mousemove", moveElement, false);
     }
-
     function moveElement(e) {
         mouseX = e.clientX - posX;
         mouseY = e.clientY - posY;
         draggable.style.left = mouseX + "px";
         draggable.style.top = mouseY + "px";
     }
-}
+} // Déplacer la zone de déplacement du lanceur de dé

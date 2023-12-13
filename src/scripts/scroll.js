@@ -11,7 +11,6 @@ class ScrollManager {
 
     scrollToPlayer(player, callback) {
         const playerRect = player.getElement().getBoundingClientRect();
-
         const scrollLeft =
             playerRect.left +
             window.scrollX -
@@ -29,18 +28,21 @@ class ScrollManager {
 
         // Appel de la fonction de rappel une fois le défilement terminé
         setTimeout(callback, 1000); // Vous pouvez ajuster cette durée en fonction de vos besoins
-    }
+    } // Faire défiler le tableau de jeu jusqu'au joueur
 
     scrollToCurrentPlayer() {
         const currentPlayer = this.players[this.currentPlayerIndex];
         this.scrollToPlayer(currentPlayer);
-    }
+    } // Faire défiler le tableau de jeu jusqu'au joueur actuel
 
-    scrollToNextPlayer() {
-        const nextPlayerIndex = 1 - this.currentPlayerIndex;
-        const nextPlayer = this.players[nextPlayerIndex];
+    scrollToNextPlayer(players) {
+        const nextPlayerIndex = this.currentPlayerIndex - 1;
+        const nextPlayer =
+            nextPlayerIndex !== -1
+                ? this.players[nextPlayerIndex]
+                : this.players[players.length - 1];
         this.scrollToPlayer(nextPlayer);
-    }
+    } // Faire défiler le tableau de jeu jusqu'au joueur suivant
 }
 
 // Exportez une instance de la classe pour être utilisée dans d'autres fichiers

@@ -1,5 +1,3 @@
-import scrollManager from "./scroll.js";
-
 class Dice {
     constructor() {
         this.faces = [
@@ -10,25 +8,16 @@ class Dice {
             "fa-dice-five",
             "fa-dice-six",
         ];
-    }
+    } // Initialiser les icones des dés
 
     roll() {
         const result = Math.floor(Math.random() * 6) + 1;
         const faceClass = this.faces[result - 1];
-        return [result, faceClass];
-    }
+        return [result, faceClass]; // Retourne un tableau contenant le résultat du dé et la classe CSS correspondante
+    } // Lancer les dés
 
-    displayDiceResult(
-        playerName,
-        playerColor,
-        dice1,
-        dice2,
-        currentPlayerIndex,
-        position1,
-        position2
-    ) {
+    displayDiceResult(playerName, playerColor, dice1, dice2, newPosition) {
         const modalResultElement = document.getElementById("dice-modal-result");
-        const totalPosition = currentPlayerIndex === 1 ? position1 : position2;
 
         modalResultElement.innerHTML = `
         <div id="shwDiceResult">
@@ -43,10 +32,10 @@ class Dice {
         }</span> cases
             </div>
             <div class="cellModal">
-                <span class="numberModal" style="color:${playerColor}">${totalPosition}</span>
+                <span class="numberModal" style="color:${playerColor}">${newPosition}</span>
             </div>
         </div>`;
-    }
+    } // Affiche le résultat des dés dans la modale
 }
 
 export default Dice;
